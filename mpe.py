@@ -7,6 +7,18 @@ stocks = ['NASDAQ:AAPL',
   'NYSE:LNKD',
   'NASDAQ:ZNGA']
 
+# stocks = ['LON:BARC',
+#   'LON:HSBA',
+#   'LON:LLOY',
+#   'NYSE:C',
+#   'NYSE:BAC',
+#   'NYSE:JPM',
+#   'NYSE:WFC',
+#   'NYSE:UBS',
+#   'NYSE:GS',
+#   'NYSE:MS',
+#   'NYSE:CS']
+  
 def fetch(url):
   import urllib
   from bs4 import BeautifulSoup
@@ -25,5 +37,5 @@ if __name__ == '__main__':
 		page = fetch('http://www.google.com/finance?q=%s' % s)
 		cap = market_cap(page)
 		emp = employees(page)
-		mil_per_emp = float(cap.strip('B')) * 1000 / int(emp.replace(',', ''))
+		mil_per_emp = float(cap.strip('*').strip('B')) * 1000 / int(emp.replace(',', ''))
 		print '\t'.join([s.split(':')[1], cap, emp, '%.2f' % mil_per_emp])
